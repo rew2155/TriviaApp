@@ -40,3 +40,18 @@
 .read-the-docs {
   color: #888;
 }
+
+.books{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.book{
+  border: 1px solid black;
+  width: 250px;
+  height: 250px;
+}
+
+.basket{
+  border: 1px solid black;
+}
