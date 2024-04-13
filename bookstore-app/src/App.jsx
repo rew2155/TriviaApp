@@ -1,7 +1,7 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import reactLogo from './assets/react.svg';
+import viteLogo from '../public/vite.svg';
+import './styles/App.css';
 
 const bookData = {
   "fiction": [
@@ -22,7 +22,22 @@ const bookData = {
 };
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [selectedGenre, setSelectedGenre] = useState('fiction');
+  const [basket, setBasket] = useState([]);
+
+  const handleGenreChange = (genre) => {
+    setSelectedGenre(genre);
+  };
+
+  const addToBasket = (book) => {
+    setBasket([...basket, book]);
+  };
+
+  const removeFromBasket = (index) => {
+    const newBasket = [...basket];
+    newBasket.splice(index, 1);
+    setBasket(newBasket);
+  };
 
   return (
     <>
@@ -35,19 +50,34 @@ function App() {
         </a>
       </div>
       <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+      <div className="genre-buttons">
+        <button onClick={() => handleGenreChange('fiction')}>Fiction</button>
+        <button onClick={() => handleGenreChange('non-fiction')}>Non-Fiction</button>
+        <button onClick={() => handleGenreChange('children')}>Children</button>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <div className="books">
+        {bookData[selectedGenre].map((book, index) => (
+          <div key={index} className="book">
+            <h3>{book.title}</h3>
+            <p>Author: {book.author}</p>
+            <p>Price: ${book.price.toFixed(2)}</p>
+            <button onClick={() => addToBasket(book)}>Add to Basket</button>
+          </div>
+        ))}
+      </div>
+      <div className="basket">
+        <h2>Basket</h2>
+        <ul>
+          {basket.map((item, index) => (
+            <li key={index}>
+              {item.title} - ${item.price.toFixed(2)}
+              <button onClick={() => removeFromBasket(index)}>Remove</button>
+            </li>
+          ))}
+        </ul>
+      </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
