@@ -40,3 +40,21 @@
 .read-the-docs {
   color: #888;
 }
+
+.button {
+  margin: 5px;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background: #f0f0f0;
+  cursor: pointer;
+}
+
+.correct {
+  background: #ccffcc;
+}
+
+.incorrect {
+  background: #ffcccc;
+}
+
